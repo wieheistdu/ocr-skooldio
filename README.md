@@ -87,3 +87,58 @@ aiplatform.init(project=project_name, credentials=credentials)
 model = GenerativeModel("gemini-1.5-flash-001")
 print(model.generate_content("Why is sky blue?"))
 ```
+
+## วิธีเรียกใช้โมเดลจาก Ollama ด้วย Langchain
+
+- ดาวน์โหลด [Ollama](https://ollama.com/) และจากนั้นโหลดโมเดล llama 3.1 และ llama 3.2 ด้วยคำสั่ง
+
+``` sh
+ollama run llama3.1
+ollama run llama3.2
+```
+
+- จากนั้นลงไลบรารี่ที่เกี่ยวข้อง
+
+``` sh
+!pip install langchain
+!pip install langchain_community
+```
+
+- และทดลองรันโมเดลด้วย Python โดยการใช้ฟังก์ชั่นตามด้านล่าง เราจะใช้โมเดลเปิดเหล่านี้ในการจัดรูปของ output ที่ได้จาก OCR เพื่อนำไปใช้งานต่อได้
+
+``` sh
+# Code from https://stackoverflow.com/a/78430197/3626961
+from langchain_community.llms import Ollama
+from langchain import PromptTemplate # Added
+
+llm = Ollama(model="llama3.1", stop=["<|eot_id|>"]) # Added stop token
+
+def get_model_response(user_prompt, system_prompt):
+    # NOTE: No f string and no whitespace in curly braces
+    template = """
+        <|begin_of_text|>
+        <|start_header_id|>system<|end_header_id|>
+        {system_prompt}
+        <|eot_id|>
+        <|start_header_id|>user<|end_header_id|>
+        {user_prompt}
+        <|eot_id|>
+        <|start_header_id|>assistant<|end_header_id|>
+        """
+
+    # Added prompt template
+    prompt = PromptTemplate(
+        input_variables=["system_prompt", "user_prompt"],
+        template=template
+    )
+    
+    # Modified invoking the model
+    response = llm(prompt.format(system_prompt=system_prompt, user_prompt=user_prompt))
+    
+    return response
+
+# Example
+user_prompt = "What is 1 + 1?"
+system_prompt = "You are a helpful assistant doing as the given prompt."
+get_model_response(user_prompt, system_prompt)
+```
