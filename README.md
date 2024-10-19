@@ -92,21 +92,21 @@ print(model.generate_content("Why is sky blue?"))
 
 - ดาวน์โหลด [Ollama](https://ollama.com/) และจากนั้นโหลดโมเดล llama 3.1 และ llama 3.2 ด้วยคำสั่ง
 
-``` sh
+```sh
 ollama run llama3.1
 ollama run llama3.2
 ```
 
 - จากนั้นลงไลบรารี่ที่เกี่ยวข้อง
 
-``` sh
+```sh
 !pip install langchain
 !pip install langchain_community
 ```
 
 - และทดลองรันโมเดลด้วย Python โดยการใช้ฟังก์ชั่นตามด้านล่าง เราจะใช้โมเดลเปิดเหล่านี้ในการจัดรูปของ output ที่ได้จาก OCR เพื่อนำไปใช้งานต่อได้
 
-``` sh
+```py
 # Code from https://stackoverflow.com/a/78430197/3626961
 from langchain_community.llms import Ollama
 from langchain import PromptTemplate # Added
@@ -131,10 +131,10 @@ def get_model_response(user_prompt, system_prompt):
         input_variables=["system_prompt", "user_prompt"],
         template=template
     )
-    
+
     # Modified invoking the model
     response = llm(prompt.format(system_prompt=system_prompt, user_prompt=user_prompt))
-    
+
     return response
 
 # Example
