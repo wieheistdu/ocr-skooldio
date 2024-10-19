@@ -1,5 +1,6 @@
 easyocr
 google-cloud-aiplatform
+gradio
 langchain
 langchain_community
 langchain_ollama
