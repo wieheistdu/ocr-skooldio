@@ -1,10 +1,13 @@
 easyocr
 google-cloud-aiplatform
+langchain
+langchain_community
 matplotlib
 openai
 openpyxl
 pandas
 sentencepiece
+streamlit
 surya-ocr
 tabulate
 torch
