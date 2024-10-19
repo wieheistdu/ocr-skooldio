@@ -2,6 +2,7 @@ easyocr
 google-cloud-aiplatform
 langchain
 langchain_community
+langchain_ollama
 matplotlib
 openai
 openpyxl
