@@ -1,8 +1,9 @@
-from typing import Sequence
-from torchmetrics.text import CharErrorRate
-import pandas as pd
 from dataclasses import dataclass
+from typing import Sequence
+
+import pandas as pd
 from tabulate import tabulate
+from torchmetrics.text import CharErrorRate
 
 
 @dataclass
