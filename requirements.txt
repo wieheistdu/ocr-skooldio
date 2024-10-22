@@ -1,0 +1,17 @@
+easyocr
+google-cloud-aiplatform
+gradio
+langchain
+langchain_community
+langchain_ollama
+matplotlib
+openai
+openpyxl
+pandas
+sentencepiece
+streamlit
+surya-ocr
+tabulate
+torch
+torchmetrics
+transformers
